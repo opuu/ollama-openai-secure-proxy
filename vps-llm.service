@@ -1,0 +1,21 @@
+[Unit]
+Description=Ollama OpenAI Proxy (vps-llm)
+After=network.target ollama.service
+
+[Service]
+Type=simple
+User=opu
+WorkingDirectory=/home/opu/vps-llm
+EnvironmentFile=/home/opu/vps-llm/.env
+ExecStart=/usr/local/bin/bun run src/index.ts
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,62 @@
+import type { ProxyConfig } from "./types";
+
+function parseKeys(raw: string | undefined): Set<string> {
+    if (!raw || raw.trim() === "") return new Set();
+    return new Set(
+        raw
+            .split(",")
+            .map((k) => k.trim())
+            .filter(Boolean),
+    );
+}
+
+function parseAliases(raw: string | undefined): Record<string, string> {
+    if (!raw || raw.trim() === "") return {};
+    return Object.fromEntries(
+        raw
+            .split(",")
+            .map((pair) => pair.trim())
+            .filter(Boolean)
+            .map((pair) => {
+                const [alias, target] = pair.split(":").map((s) => s.trim());
+                return [alias, target];
+            })
+            .filter(([a, t]) => a && t),
+    );
+}
+
+export function loadConfig(): ProxyConfig {
+    const apiKeys = parseKeys(process.env.API_KEYS);
+
+    if (apiKeys.size === 0) {
+        console.error(
+            "❌  API_KEYS is not set. Set at least one key in your .env file.",
+        );
+        process.exit(1);
+    }
+
+    // Default aliases map common OpenAI model names → your Ollama models
+    const defaultAliasStr =
+        process.env.MODEL_ALIASES ??
+        [
+            "gpt-4:qwen2.5:14b",
+            "gpt-4o:qwen2.5:14b",
+            "gpt-4-turbo:qwen2.5:14b",
+            "gpt-3.5-turbo:qwen2.5:7b",
+            "gpt-3.5-turbo-16k:qwen2.5:7b",
+        ].join(",");
+
+    return {
+        ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? "http://127.0.0.1:11434",
+        defaultModel: process.env.DEFAULT_MODEL ?? "qwen2.5:14b",
+        // Threads per request — keep at ~half your cores to allow concurrent reqs
+        numThreads: parseInt(process.env.NUM_THREADS ?? "4", 10),
+        // Context window size (tokens) — larger = more RAM
+        numCtx: parseInt(process.env.NUM_CTX ?? "4096", 10),
+        modelAliases: parseAliases(defaultAliasStr),
+        apiKeys,
+        logRequests: process.env.LOG_REQUESTS !== "false",
+    };
+}
+
+export const config = loadConfig();
