@@ -13,7 +13,7 @@ module.exports = {
             instances: 1,
 
             // Working directory
-            cwd: "/home/opu/vps-llm",
+            cwd: "./",
 
             // Load .env automatically (Bun does this natively;
             // PM2 also merges it into the environment)
