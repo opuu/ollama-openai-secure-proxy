@@ -64,6 +64,11 @@ export function loadConfig(): ProxyConfig {
         numCtx: parseInt(process.env.NUM_CTX ?? "4096", 10),
         // How long Ollama keeps the model in memory; -1 = forever, 0 = unload immediately
         keepAlive: process.env.KEEP_ALIVE ?? "-1",
+        // Models to pre-load into Ollama memory on startup (comma-separated)
+        warmupModels: (process.env.WARMUP_MODELS ?? "")
+            .split(",")
+            .map((m) => m.trim())
+            .filter(Boolean),
         modelAliases: parseAliases(defaultAliasStr),
         apiKeys,
         logRequests: process.env.LOG_REQUESTS !== "false",

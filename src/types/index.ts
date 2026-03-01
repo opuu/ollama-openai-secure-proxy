@@ -114,6 +114,7 @@ export interface ProxyConfig {
     numThreads: number;
     numCtx: number;
     keepAlive: number | string;
+    warmupModels: string[];
     modelAliases: Record<string, string>;
     apiKeys: Set<string>;
     logRequests: boolean;
