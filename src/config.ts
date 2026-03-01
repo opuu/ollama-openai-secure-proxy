@@ -18,7 +18,10 @@ function parseAliases(raw: string | undefined): Record<string, string> {
             .map((pair) => pair.trim())
             .filter(Boolean)
             .map((pair) => {
-                const [alias, target] = pair.split(":").map((s) => s.trim());
+                const idx = pair.indexOf(":");
+                if (idx === -1) return ["", ""];
+                const alias = pair.slice(0, idx).trim();
+                const target = pair.slice(idx + 1).trim();
                 return [alias, target];
             })
             .filter(([a, t]) => a && t),
