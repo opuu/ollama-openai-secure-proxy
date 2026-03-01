@@ -38,16 +38,21 @@ export function loadConfig(): ProxyConfig {
         process.exit(1);
     }
 
-    // Default aliases map common OpenAI model names → your Ollama models
+    // Aliases are optional convenience shortcuts → real Ollama model names.
+    // If MODEL_ALIASES is not set, these defaults are used.
+    // Any model name NOT listed here is passed through to Ollama as-is,
+    // so clients can always use the real name directly (e.g. "qwen2.5:14b").
     const defaultAliasStr =
         process.env.MODEL_ALIASES ??
         [
-            "gpt-4:qwen2.5:14b",
-            "gpt-4o:qwen2.5:14b",
-            "gpt-4-turbo:qwen2.5:14b",
-            "gpt-3.5-turbo:qwen2.5:7b",
-            "gpt-3.5-turbo-16k:qwen2.5:7b",
-            "gpt-3.5:qwen2.5:3b",
+            // ── Size-based shorthand ───────────────────────────────────────────
+            "qwen-tiny:qwen2.5:1.5b-instruct",
+            "qwen-small:qwen2.5:3b",
+            "qwen-medium:qwen2.5:7b",
+            "qwen-large:qwen2.5:14b",
+            // ── Short names for other installed models ─────────────────────────
+            "mistral:mistral:7b-instruct",
+            "phi3:phi3:mini",
         ].join(",");
 
     return {
