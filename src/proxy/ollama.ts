@@ -17,11 +17,15 @@ function injectOllamaOptions(
     body: Record<string, unknown>,
 ): Record<string, unknown> {
     const existing = (body.options as Record<string, unknown>) ?? {};
+    // Map OpenAI max_tokens → Ollama num_predict (-1 = unlimited)
+    const maxTokens = body.max_tokens as number | undefined;
+    const { max_tokens: _dropped, ...rest } = body;
     return {
-        ...body,
+        ...rest,
         options: {
             num_thread: config.numThreads, // max CPU threads per request
             num_ctx: config.numCtx, // context window — also caps RAM
+            num_predict: maxTokens ?? -1, // -1 = unlimited
             // Allow caller to override anything
             ...existing,
         },

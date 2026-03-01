@@ -19,7 +19,6 @@ async function main() {
     const resp = await client.chat.completions.create({
         model: "gpt-4",
         messages: [{ role: "user", content: "What is the capital of France?" }],
-        max_tokens: 16,
     });
 
     console.log(JSON.stringify(resp, null, 2));
