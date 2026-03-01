@@ -82,7 +82,9 @@ console.log(`   → Context window : ${config.numCtx} tokens`);
 console.log(`   → Keep alive     : ${config.keepAlive}`);
 console.log(`   → API keys loaded: ${config.apiKeys.size}`);
 console.log(`   → Model aliases  : ${JSON.stringify(config.modelAliases)}`);
-console.log(`   → Warmup models  : ${config.warmupModels.length ? config.warmupModels.join(", ") : "(none)"}`);
+console.log(
+    `   → Warmup models  : ${config.warmupModels.length ? config.warmupModels.join(", ") : "(none)"}`,
+);
 
 // Pre-load all warmup models into Ollama memory in the background
 if (config.warmupModels.length > 0) {

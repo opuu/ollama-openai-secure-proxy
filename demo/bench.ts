@@ -220,7 +220,7 @@ async function runScenario(id: number, scenario: Scenario): Promise<Result> {
     const start = performance.now();
     try {
         const resp = await client.chat.completions.create({
-            model: "qwen2.5:3b",
+            model: "qwen2.5:1.5b-instruct",
             max_tokens: scenario.max_tokens,
             messages: scenario.messages,
         });

@@ -9,7 +9,9 @@ import { config } from "./config";
 export async function warmupModels(models: string[]): Promise<void> {
     if (models.length === 0) return;
 
-    console.log(`🔥  Warming up ${models.length} model(s): ${models.join(", ")}`);
+    console.log(
+        `🔥  Warming up ${models.length} model(s): ${models.join(", ")}`,
+    );
 
     const results = await Promise.allSettled(
         models.map((model) => warmupOne(model)),
