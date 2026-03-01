@@ -44,6 +44,7 @@ export function loadConfig(): ProxyConfig {
             "gpt-4-turbo:qwen2.5:14b",
             "gpt-3.5-turbo:qwen2.5:7b",
             "gpt-3.5-turbo-16k:qwen2.5:7b",
+            "gpt-3.5:qwen2.5:3b",
         ].join(",");
 
     return {

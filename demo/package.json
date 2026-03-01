@@ -1,0 +1,13 @@
+{
+  "name": "demo",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "openai": "^6.25.0"
+  }
+}
