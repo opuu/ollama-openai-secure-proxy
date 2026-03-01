@@ -22,6 +22,7 @@ function injectOllamaOptions(
     const { max_tokens: _dropped, ...rest } = body;
     return {
         ...rest,
+        keep_alive: config.keepAlive, // keep model loaded in Ollama memory
         options: {
             num_thread: config.numThreads, // max CPU threads per request
             num_ctx: config.numCtx, // context window — also caps RAM

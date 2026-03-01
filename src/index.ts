@@ -78,5 +78,6 @@ console.log(`   → Ollama backend : ${config.ollamaBaseUrl}`);
 console.log(`   → Default model  : ${config.defaultModel}`);
 console.log(`   → Threads/request: ${config.numThreads}`);
 console.log(`   → Context window : ${config.numCtx} tokens`);
+console.log(`   → Keep alive     : ${config.keepAlive}`);
 console.log(`   → API keys loaded: ${config.apiKeys.size}`);
 console.log(`   → Model aliases  : ${JSON.stringify(config.modelAliases)}`);

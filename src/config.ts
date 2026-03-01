@@ -57,6 +57,8 @@ export function loadConfig(): ProxyConfig {
         numThreads: parseInt(process.env.NUM_THREADS ?? "4", 10),
         // Context window size (tokens) — larger = more RAM
         numCtx: parseInt(process.env.NUM_CTX ?? "4096", 10),
+        // How long Ollama keeps the model in memory; -1 = forever, 0 = unload immediately
+        keepAlive: process.env.KEEP_ALIVE ?? "-1",
         modelAliases: parseAliases(defaultAliasStr),
         apiKeys,
         logRequests: process.env.LOG_REQUESTS !== "false",

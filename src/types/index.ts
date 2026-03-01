@@ -113,6 +113,7 @@ export interface ProxyConfig {
     defaultModel: string;
     numThreads: number;
     numCtx: number;
+    keepAlive: number | string;
     modelAliases: Record<string, string>;
     apiKeys: Set<string>;
     logRequests: boolean;
